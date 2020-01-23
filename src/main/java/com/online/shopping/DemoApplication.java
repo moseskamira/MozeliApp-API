@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-//		This shall be printed
 		SpringApplication.run(DemoApplication.class, args);
+		System.out.println("Executing Online Shopping System");
 	}
 
 }
