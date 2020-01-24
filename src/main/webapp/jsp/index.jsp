@@ -20,17 +20,17 @@
 </head>
 
 <body >
-  ${contextRoot}says ${greeting}
+  
   <!-- Navigation Bar Section -->
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" >
-          <span class="sr-only">Toggle Navigation</span>
+          <span class="sr-only">Toggle Navigation Bar</span>
           <span class="icon-bar"> </span>
           <span class="icon-bar"> </span>
           <span class="icon-bar"> </span>
           </button>
-          <a class="navbar-brand" href="#">MOTECH SHOPPING CENTRE</a>
+          <a class="navbar-brand" href="#"> MOTECH SHOPPING CENTRE</a>
   
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -42,7 +42,29 @@
            </ul>
       </div>
   </nav>
-
- 
+  
+  <!-- Page Content Starts -->
+  <div class="container" style="margin-top:6%;">
+       <div class="row">
+            <div class="col-md-3">
+                  <p class="lead">CATEGORIES</p>
+                  <div class="list-group">
+                       <a href="#" class="list-group-item">Category-1</a>
+                       <a href="#" class="list-group-item">Category-2</a>
+                       <a href="#" class="list-group-item">Category-3</a>
+                       <a href="#" class="list-group-item">Category-4</a>
+                  </div>
+             </div>
+             <div class="col-md-9">
+              <p style="align:center;">${greeting} </p>
+            </div>
+             
+       </div>
+  
+  </div>
+  
+  <!-- Footer section -->
+  
+  
 </body>
 </html>
