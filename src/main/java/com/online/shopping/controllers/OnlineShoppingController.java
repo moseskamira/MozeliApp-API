@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.online.shopping.ProductCategory;
 import com.online.shopping.service.ProductCategoryService;
@@ -23,21 +25,13 @@ public class OnlineShoppingController {
 	@Autowired
 	ProductCategoryService prodCatService;
 	ProductCategory productCategory;
-//	@RequestMapping(value="")
-//	public ModelAndView returnHomePage() {
-//		ModelAndView mv = new ModelAndView("index");
-//		mv.addObject("greeting", "WELCOME TO MOTECH SHOPPING CENTRE");
-//		return mv;
-//	}
+	@RequestMapping(value="")
+	public ModelAndView returnHomePage() {
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("greeting", "WELCOME TO MOTECH SHOPPING CENTRE");
+		return mv;
+	}
 
-//	@RequestMapping(value="/addProdCategory", method=RequestMethod.POST)
-//	@ResponseBody
-//	public ProductCategory saveProductCategory(@ModelAttribute("productCategory") ProductCategoryRequest prodCatReq) {
-//		ProductCategory prodCat = new ProductCategory();
-//		prodCat.setCatName(prodCatReq.getCatName());
-//		prodCatService.addProductCategory(prodCat);
-//		return prodCat;	
-//	}
 	@PostMapping("/prodCat")
 	public ProductCategory addProdCat(@RequestBody ProductCategory prodCat) {
 		ProductCategory addedProdCat = prodCatService.addProductCategory(prodCat);
@@ -60,6 +54,12 @@ public class OnlineShoppingController {
 	public String deleteProdCat(@PathVariable("catId") Long id) {
 		prodCatService.deleteProductCategory(id);
 		return "Successfully Deleted Product Category";
+	}
+	
+	@PutMapping("/prodCat/{catId}")
+	public ProductCategory updateProdCat(@PathVariable("catId") Long id, @RequestBody ProductCategory prodCat) {
+		ProductCategory updatedProdCat = prodCatService.updateProductCategory(id, prodCat);
+		return updatedProdCat;
 	}
 	
 	
