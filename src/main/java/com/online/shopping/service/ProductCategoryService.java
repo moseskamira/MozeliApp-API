@@ -33,4 +33,11 @@ public class ProductCategoryService {
 		productCategoryDao.deleteById(id);
 		return "Successfully Deleted";
 	}
+	
+	public ProductCategory updateProductCategory(Long id, ProductCategory prodCat) {
+		ProductCategory prodCatToUpdate = productCategoryDao.getOne(id);
+		prodCatToUpdate.setCatName(prodCat.getCatName());
+		ProductCategory updatedProdCat = productCategoryDao.saveAndFlush(prodCatToUpdate);
+		return updatedProdCat;
+	}
 }
