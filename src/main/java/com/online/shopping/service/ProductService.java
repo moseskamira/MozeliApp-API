@@ -60,4 +60,23 @@ public class ProductService {
 		productDao.delete(productToBeDeleted);
 		return "Successfully Deleted Product";
 	}
+	
+	public Product updateProduct(Long catId, Long prodId, Product product) {
+		ProductCategory category = productCategoryDao.getOne(catId);
+		List<Product> myProdList = category.getProducts();
+		Product updatedProduct = null;
+		if(!myProdList.isEmpty()) {
+			for(Product prodToUpdate : myProdList) {
+				if(prodToUpdate.getProdId()==prodId) {
+					prodToUpdate.setProdName(product.getProdName());
+					prodToUpdate.setProdDescrip(product.getProdDescrip());
+					prodToUpdate.setProdImageUrl(product.getProdImageUrl());
+					updatedProduct = productDao.saveAndFlush(prodToUpdate);
+				}
+			}
+		}
+		
+		return updatedProduct;
+		
+	}
 }

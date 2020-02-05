@@ -97,4 +97,11 @@ public class OnlineShoppingController {
 		return "Product Deleted Successfully";
 	}
 	
+	@PutMapping("/prodCat/{catId}/prod/{prodId}")
+	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
+		Product updatedProd = productService.updateProduct(prodCatId, id, product);
+		
+		return updatedProd;
+	}
+	
 }
