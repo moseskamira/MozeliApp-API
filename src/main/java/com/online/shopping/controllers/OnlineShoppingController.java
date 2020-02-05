@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
@@ -29,13 +28,6 @@ public class OnlineShoppingController {
 	
 	@Autowired
 	ProductService productService;
-	
-	@RequestMapping(value="")
-	public ModelAndView returnHomePage() {
-		ModelAndView mv = new ModelAndView("index");
-		mv.addObject("greeting", "WELCOME TO MOTECH SHOPPING CENTRE");
-		return mv;
-	}
 
 	@PostMapping("/prodCat")
 	public ProductCategory addProdCat(@RequestBody ProductCategory prodCat) {
@@ -100,7 +92,6 @@ public class OnlineShoppingController {
 	@PutMapping("/prodCat/{catId}/prod/{prodId}")
 	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
 		Product updatedProd = productService.updateProduct(prodCatId, id, product);
-		
 		return updatedProd;
 	}
 	
