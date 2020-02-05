@@ -1,5 +1,11 @@
 package com.online.shopping.dao;
 
-public interface ProductDAO {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.online.shopping.models.Product;
+
+@Repository
+public interface ProductDAO extends JpaRepository<Product, Long>{
 
 }

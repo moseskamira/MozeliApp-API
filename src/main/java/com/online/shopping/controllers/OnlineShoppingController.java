@@ -16,15 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.online.shopping.ProductCategory;
+import com.online.shopping.models.Product;
+import com.online.shopping.models.ProductCategory;
 import com.online.shopping.service.ProductCategoryService;
+import com.online.shopping.service.ProductService;
 
 @RestController
 @RequestMapping("onlineshopping")
 public class OnlineShoppingController {
 	@Autowired
 	ProductCategoryService prodCatService;
-	ProductCategory productCategory;
+	
+	@Autowired
+	ProductService productService;
+	
 	@RequestMapping(value="")
 	public ModelAndView returnHomePage() {
 		ModelAndView mv = new ModelAndView("index");
@@ -62,6 +67,20 @@ public class OnlineShoppingController {
 		return updatedProdCat;
 	}
 	
+	@PostMapping("/prodCat/{catId}/prod")
+	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
+		Product addedProduct = productService.saveProduct(prodCatId, product);
+		
+		return addedProduct;
+		
+	}
+	
+	@GetMapping("/prodCat/prod")
+	public List<Product> fetAllProducts() {
+		List<Product> productsList = productService.getAllProducts();
+		return productsList;
+		
+	}
 	
 	
 	

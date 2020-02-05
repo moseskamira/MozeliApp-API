@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.online.shopping.ProductCategory;
 import com.online.shopping.dao.ProductCategoryDAO;
+import com.online.shopping.models.ProductCategory;
 
 @Service
 public class ProductCategoryService {
