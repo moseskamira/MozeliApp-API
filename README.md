@@ -17,6 +17,8 @@ This API was implemented in Java as a backend project for managing online shoppi
 #### List Of Product Categories
 - Access the end-point via the link:https://online-shopping-api.herokuapp.com/onlineshopping/prodCat
 
+#### List Of All Products
+- Access the endpoint via the Link: https://online-shopping-api.herokuapp.com/onlineshopping/prodCat/prod
 
 ### Locally
 - clone the repository onto your machine via the link: https://github.com/moseskamira/OnlineShoppingSystem.git

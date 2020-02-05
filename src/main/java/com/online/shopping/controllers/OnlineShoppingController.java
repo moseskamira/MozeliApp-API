@@ -75,6 +75,13 @@ public class OnlineShoppingController {
 		
 	}
 	
+	@GetMapping("/prodCat/prod")
+	public List<Product> fetAllProducts() {
+		List<Product> productsList = productService.getAllProducts();
+		return productsList;
+		
+	}
+	
 	
 	
 	
