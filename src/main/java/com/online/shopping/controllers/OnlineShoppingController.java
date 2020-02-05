@@ -76,9 +76,24 @@ public class OnlineShoppingController {
 	}
 	
 	@GetMapping("/prodCat/prod")
-	public List<Product> fetAllProducts() {
+	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
+		
+	}
+	
+	@GetMapping("/prodCat/{catId}/prod")
+	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
+		List<Product> catProductsList = productService.getProductsPerCategory(id);
+				
+		return catProductsList;
+		
+	}
+	
+	@GetMapping("/prodCat/{catId}/prod/{prodId}")
+	public Product fetchSingleProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
+		Product myProduct = productService.getSingleProduct(prodCatId, id);
+		return myProduct;
 		
 	}
 	
