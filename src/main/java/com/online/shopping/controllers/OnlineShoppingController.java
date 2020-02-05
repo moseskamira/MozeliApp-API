@@ -70,34 +70,31 @@ public class OnlineShoppingController {
 	@PostMapping("/prodCat/{catId}/prod")
 	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
 		Product addedProduct = productService.saveProduct(prodCatId, product);
-		
 		return addedProduct;
-		
 	}
 	
 	@GetMapping("/prodCat/prod")
 	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
-		
 	}
 	
 	@GetMapping("/prodCat/{catId}/prod")
 	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
-		List<Product> catProductsList = productService.getProductsPerCategory(id);
-				
+		List<Product> catProductsList = productService.getProductsPerCategory(id);	
 		return catProductsList;
-		
 	}
 	
 	@GetMapping("/prodCat/{catId}/prod/{prodId}")
 	public Product fetchSingleProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		Product myProduct = productService.getSingleProduct(prodCatId, id);
 		return myProduct;
-		
 	}
 	
-	
-	
+	@DeleteMapping("/prodCat/{catId}/prod/{prodId}")
+	public String deleteProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
+		productService.deleteProduct(prodCatId, id);	
+		return "Product Deleted Successfully";
+	}
 	
 }

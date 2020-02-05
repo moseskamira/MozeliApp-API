@@ -27,7 +27,6 @@ public class ProductService {
 		myProduct.setProdImageUrl(product.getProdImageUrl());
 		myProduct.setProdLike(product.isProdLike());
 		Product savedProduct = productDao.saveAndFlush(myProduct);
-		
 		return savedProduct;
 	}
 	
@@ -54,5 +53,11 @@ public class ProductService {
 			}
 		}
 		return myProduct;
+	}
+	
+	public String deleteProduct(Long prodCatId, Long prodId) {
+		Product productToBeDeleted = productDao.getOne(prodId);
+		productDao.delete(productToBeDeleted);
+		return "Successfully Deleted Product";
 	}
 }
