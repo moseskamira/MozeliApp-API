@@ -1,5 +1,5 @@
 # Online Shopping System API
-This API was implemented in Java as a backend project for managing online shopping 
+The Online Shopping System API was implemented in Java as a Back-end project for managing online shopping 
 
 ##### USED TECHNOLOGY/ APPROACH/LANGUAGE
 - Spring Boot.
@@ -10,11 +10,13 @@ This API was implemented in Java as a backend project for managing online shoppi
 - Spring MVC
 
 ##### PROJECT DEVELOPMENT OBJECTIVES
-- To implement Rest API in Java
+- To implement Rest API in Java with Spring Boot
 
 ##### HOW TO TEST THE ONLINE SHOPPING SYSTEM API
 ###### Documented API Link:
 - https://online-shopping-api.herokuapp.com/swagger-ui.html#/online-shopping-controller
 
-##### Note: (Project Still Under Implementation)
+
+##### API SCREENSHOT:
+![API](/images/api.png)
 
