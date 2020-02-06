@@ -3,6 +3,7 @@ package com.online.shopping.models;
 
 import java.util.List;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -40,15 +41,12 @@ public class ProductCategory {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	public ProductCategory(Long catId, String catName, List<Product> products) {
 		super();
 		this.catId = catId;
 		this.catName = catName;
 		this.products = products;
 	}
-
-
 	public Long getCatId() {
 		return catId;
 	}
@@ -61,13 +59,9 @@ public class ProductCategory {
 	public void setCatName(String catName) {
 		this.catName = catName;
 	}
-	
-	
 	public List<Product> getProducts() {
 		return products;
 	}
-
-
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
