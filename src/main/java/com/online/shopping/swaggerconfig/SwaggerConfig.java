@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -22,9 +24,28 @@ public class SwaggerConfig {
 				.apis(RequestHandlerSelectors.basePackage("com.online.shopping"))
 				.paths(PathSelectors.any())
 				.build()
-				.pathMapping("/");
+				.pathMapping("/")
+				.apiInfo(myAPIInfo());
 		
 		
+	}
+
+	private ApiInfo myAPIInfo() {
+		ApiInfo myAPIInfo = new ApiInfo(
+				"Online Shopping System API",
+				"Apache 2.0",
+				"",
+				"",
+				new Contact(
+						"Moses Kamira Talemwa",
+						"https://github.com/moseskamira/OnlineShoppingSystem",
+						"moses.african@gmail.com"),
+				"",
+				""
+				);
+		
+		// TODO Auto-generated method stub
+		return myAPIInfo;
 	}
 	
 
