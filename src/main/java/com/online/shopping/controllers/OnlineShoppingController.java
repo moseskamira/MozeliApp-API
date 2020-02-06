@@ -29,67 +29,67 @@ public class OnlineShoppingController {
 	@Autowired
 	ProductService productService;
 
-	@PostMapping("/prodCat")
-	public ProductCategory addProdCat(@RequestBody ProductCategory prodCat) {
+	@PostMapping("/category")
+	public ProductCategory addProductCategory(@RequestBody ProductCategory prodCat) {
 		ProductCategory addedProdCat = prodCatService.addProductCategory(prodCat);
 		return addedProdCat;
 	}
 	
-	@GetMapping("/prodCat/{catId}")
-	public Optional<ProductCategory> fetchSingleProdCat(@PathVariable("catId") Long id) {
+	@GetMapping("/category/{catId}")
+	public Optional<ProductCategory> fetchSingleProductCategory(@PathVariable("catId") Long id) {
 		Optional<ProductCategory> fetchedProdCat = prodCatService.getSingleProductCategory(id);
 		return fetchedProdCat;
 	}
 	
-	@GetMapping("/prodCat")
+	@GetMapping("/category")
 	public ResponseEntity<List<ProductCategory>> fetAllProductCategories() {
 		List<ProductCategory> prodCatList = prodCatService.getAllProductCategories();
 		return ResponseEntity.ok().body(prodCatList);
 	}
 	
-	@DeleteMapping("/prodCat/{catId}")
-	public String deleteProdCat(@PathVariable("catId") Long id) {
+	@DeleteMapping("/category/{catId}")
+	public String deleteProductCategory(@PathVariable("catId") Long id) {
 		prodCatService.deleteProductCategory(id);
 		return "Successfully Deleted Product Category";
 	}
 	
-	@PutMapping("/prodCat/{catId}")
-	public ProductCategory updateProdCat(@PathVariable("catId") Long id, @RequestBody ProductCategory prodCat) {
+	@PutMapping("/category/{catId}")
+	public ProductCategory updateProductCategory(@PathVariable("catId") Long id, @RequestBody ProductCategory prodCat) {
 		ProductCategory updatedProdCat = prodCatService.updateProductCategory(id, prodCat);
 		return updatedProdCat;
 	}
 	
-	@PostMapping("/prodCat/{catId}/prod")
+	@PostMapping("/category/{catId}/product")
 	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
 		Product addedProduct = productService.saveProduct(prodCatId, product);
 		return addedProduct;
 	}
 	
-	@GetMapping("/prodCat/prod")
+	@GetMapping("/category/product")
 	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
 	}
 	
-	@GetMapping("/prodCat/{catId}/prod")
+	@GetMapping("/category/{catId}/product")
 	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
 		List<Product> catProductsList = productService.getProductsPerCategory(id);	
 		return catProductsList;
 	}
 	
-	@GetMapping("/prodCat/{catId}/prod/{prodId}")
+	@GetMapping("/category/{catId}/product/{prodId}")
 	public Product fetchSingleProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		Product myProduct = productService.getSingleProduct(prodCatId, id);
 		return myProduct;
 	}
 	
-	@DeleteMapping("/prodCat/{catId}/prod/{prodId}")
+	@DeleteMapping("/category/{catId}/product/{prodId}")
 	public String deleteProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		productService.deleteProduct(prodCatId, id);	
 		return "Product Deleted Successfully";
 	}
 	
-	@PutMapping("/prodCat/{catId}/prod/{prodId}")
+	@PutMapping("/category/{catId}/product/{prodId}")
 	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
 		Product updatedProd = productService.updateProduct(prodCatId, id, product);
 		return updatedProd;
