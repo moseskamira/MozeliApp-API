@@ -2,10 +2,12 @@ package com.online.shopping.controllers;
 
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,7 @@ public class OnlineShoppingController {
 	@Autowired
 	ProductService productService;
 
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/category")
 	public ProductCategory addProductCategory(@RequestBody ProductCategory prodCat) {
 		ProductCategory addedProdCat = prodCatService.addProductCategory(prodCat);
@@ -41,12 +44,14 @@ public class OnlineShoppingController {
 		return fetchedProdCat;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/category")
 	public ResponseEntity<List<ProductCategory>> fetAllProductCategories() {
 		List<ProductCategory> prodCatList = prodCatService.getAllProductCategories();
 		return ResponseEntity.ok().body(prodCatList);
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/category/{catId}")
 	public String deleteProductCategory(@PathVariable("catId") Long id) {
 		prodCatService.deleteProductCategory(id);
@@ -59,18 +64,21 @@ public class OnlineShoppingController {
 		return updatedProdCat;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/category/{catId}/product")
 	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
 		Product addedProduct = productService.saveProduct(prodCatId, product);
 		return addedProduct;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/category/product")
 	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/category/{catId}/product")
 	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
 		List<Product> catProductsList = productService.getProductsPerCategory(id);	
@@ -83,6 +91,7 @@ public class OnlineShoppingController {
 		return myProduct;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@DeleteMapping("/category/{catId}/product/{prodId}")
 	public String deleteProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		productService.deleteProduct(prodCatId, id);	
