@@ -23,6 +23,9 @@ public class Product {
 	@Column(name="prodName")
 	String prodName;
 	
+	@Column(name="unitPrice")
+	Long unitPrice;
+	
 	@Column(name="prodDescrip")
 	String prodDescrip;
 	
@@ -42,7 +45,7 @@ public class Product {
 	}
 
 	public Product(Long prodId, String prodName, String prodDescrip, String prodImageUrl, boolean prodLike,
-			ProductCategory prodCat) {
+			ProductCategory prodCat, Long unitPrice) {
 		super();
 		this.prodId = prodId;
 		this.prodName = prodName;
@@ -50,6 +53,7 @@ public class Product {
 		this.prodImageUrl = prodImageUrl;
 		this.prodLike = prodLike;
 		this.prodCat = prodCat;
+		this.unitPrice = unitPrice;
 	}
 
 	public Long getProdId() {
@@ -99,10 +103,22 @@ public class Product {
 	public void setProdCat(ProductCategory prodCat) {
 		this.prodCat = prodCat;
 	}
+	
+	
+
+	public Long getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Long unitPrice) {
+		this.unitPrice = unitPrice;
+	}
 
 	@Override
 	public String toString() {
-		return "Product [prodId=" + prodId + ", prodName=" + prodName + ", prodDescrip=" + prodDescrip
-				+ ", prodImageUrl=" + prodImageUrl + ", prodLike=" + prodLike + ", prodCat=" + prodCat + "]";
+		return "Product [prodId=" + prodId + ", prodName=" + prodName + ", unitPrice=" + unitPrice + ", prodDescrip="
+				+ prodDescrip + ", prodImageUrl=" + prodImageUrl + ", prodLike=" + prodLike + ", prodCat=" + prodCat
+				+ "]";
 	}
+
 }
