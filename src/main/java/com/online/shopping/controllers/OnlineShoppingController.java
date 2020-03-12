@@ -31,7 +31,7 @@ public class OnlineShoppingController {
 	@Autowired
 	ProductService productService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping("/category")
 	public ProductCategory addProductCategory(@RequestBody ProductCategory prodCat) {
 		ProductCategory addedProdCat = prodCatService.addProductCategory(prodCat);
@@ -44,14 +44,14 @@ public class OnlineShoppingController {
 		return fetchedProdCat;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/category")
 	public ResponseEntity<List<ProductCategory>> fetAllProductCategories() {
 		List<ProductCategory> prodCatList = prodCatService.getAllProductCategories();
 		return ResponseEntity.ok().body(prodCatList);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/category/{catId}")
 	public String deleteProductCategory(@PathVariable("catId") Long id) {
 		prodCatService.deleteProductCategory(id);
@@ -64,40 +64,40 @@ public class OnlineShoppingController {
 		return updatedProdCat;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@PostMapping("/category/{catId}/product")
 	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
 		Product addedProduct = productService.saveProduct(prodCatId, product);
 		return addedProduct;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/category/product")
 	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/category/{catId}/product")
 	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
 		List<Product> catProductsList = productService.getProductsPerCategory(id);	
 		return catProductsList;
 	}
-	
+	@CrossOrigin(origins = "*")
 	@GetMapping("/category/{catId}/product/{prodId}")
 	public Product fetchSingleProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		Product myProduct = productService.getSingleProduct(prodCatId, id);
 		return myProduct;
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin(origins = "*")
 	@DeleteMapping("/category/{catId}/product/{prodId}")
 	public String deleteProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
 		productService.deleteProduct(prodCatId, id);	
 		return "Product Deleted Successfully";
 	}
-	
+	@CrossOrigin(origins = "*")
 	@PutMapping("/category/{catId}/product/{prodId}")
 	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
 		Product updatedProd = productService.updateProduct(prodCatId, id, product);
