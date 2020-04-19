@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping.models.Message;
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
 import com.online.shopping.service.ProductCategoryService;
 import com.online.shopping.service.ProductService;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @RestController
 @RequestMapping("onlineshopping")
@@ -30,6 +36,9 @@ public class OnlineShoppingController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+    private JavaMailSender javaMailSender;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/category")
@@ -102,6 +111,21 @@ public class OnlineShoppingController {
 	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
 		Product updatedProd = productService.updateProduct(prodCatId, id, product);
 		return updatedProd;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/sendNotification")
+	public SimpleMailMessage sendEmailMessage(@RequestBody Message emailMessage) {
+		SimpleMailMessage myMessage = new SimpleMailMessage();
+		String recipient = emailMessage.getTo();
+        String senderSubject = emailMessage.getSubject();
+        String myText = emailMessage.getText();
+        myMessage.setTo(recipient);
+        myMessage.setSubject(senderSubject);
+        myMessage.setText(myText);
+        javaMailSender.send(myMessage);
+        
+        return myMessage;
 	}
 	
 }
