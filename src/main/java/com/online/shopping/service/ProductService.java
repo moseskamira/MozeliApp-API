@@ -25,6 +25,10 @@ public class ProductService {
 		myProduct.setProdName(product.getProdName());
 		myProduct.setProdDescrip(product.getProdDescrip());
 		myProduct.setProdImageUrl(product.getProdImageUrl());
+		myProduct.setAudioUrl(product.getAudioUrl());
+		myProduct.setStudioName(product.getStudioName());
+		myProduct.setProducerName(product.getProducerName());
+		myProduct.setUnitPrice(product.getUnitPrice());
 		myProduct.setProdLike(product.isProdLike());
 		Product savedProduct = productDao.saveAndFlush(myProduct);
 		return savedProduct;

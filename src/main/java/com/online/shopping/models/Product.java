@@ -32,6 +32,15 @@ public class Product {
 	@Column(name="prodImageUrl")
 	String prodImageUrl;
 	
+	@Column(name="audioUrl")
+	String audioUrl;
+	
+	@Column(name="studioName")
+	String studioName;
+	
+	@Column(name="producerName")
+	String producerName;
+	
 	@Column(name="prodLike")
 	boolean prodLike = false;
 	
@@ -44,17 +53,24 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(Long prodId, String prodName, String prodDescrip, String prodImageUrl, boolean prodLike,
-			ProductCategory prodCat, Long unitPrice) {
+	
+
+	public Product(Long prodId, String prodName, Long unitPrice, String prodDescrip, String prodImageUrl,
+			String audioUrl, String studioName, String producerName, boolean prodLike, ProductCategory prodCat) {
 		super();
 		this.prodId = prodId;
 		this.prodName = prodName;
+		this.unitPrice = unitPrice;
 		this.prodDescrip = prodDescrip;
 		this.prodImageUrl = prodImageUrl;
+		this.audioUrl = audioUrl;
+		this.studioName = studioName;
+		this.producerName = producerName;
 		this.prodLike = prodLike;
 		this.prodCat = prodCat;
-		this.unitPrice = unitPrice;
 	}
+
+
 
 	public Long getProdId() {
 		return prodId;
@@ -104,8 +120,6 @@ public class Product {
 		this.prodCat = prodCat;
 	}
 	
-	
-
 	public Long getUnitPrice() {
 		return unitPrice;
 	}
@@ -114,10 +128,35 @@ public class Product {
 		this.unitPrice = unitPrice;
 	}
 
+	public String getAudioUrl() {
+		return audioUrl;
+	}
+
+	public void setAudioUrl(String audioUrl) {
+		this.audioUrl = audioUrl;
+	}
+
+	public String getStudioName() {
+		return studioName;
+	}
+
+	public void setStudioName(String studioName) {
+		this.studioName = studioName;
+	}
+
+	public String getProducerName() {
+		return producerName;
+	}
+
+	public void setProducerName(String producerName) {
+		this.producerName = producerName;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [prodId=" + prodId + ", prodName=" + prodName + ", unitPrice=" + unitPrice + ", prodDescrip="
-				+ prodDescrip + ", prodImageUrl=" + prodImageUrl + ", prodLike=" + prodLike + ", prodCat=" + prodCat
+				+ prodDescrip + ", prodImageUrl=" + prodImageUrl + ", audioUrl=" + audioUrl + ", studioName="
+				+ studioName + ", producerName=" + producerName + ", prodLike=" + prodLike + ", prodCat=" + prodCat
 				+ "]";
 	}
 

@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping.models.Booking;
 import com.online.shopping.models.Message;
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
+import com.online.shopping.service.BookingService;
 import com.online.shopping.service.ProductCategoryService;
 import com.online.shopping.service.ProductService;
 import org.springframework.mail.SimpleMailMessage;
@@ -36,6 +38,9 @@ public class OnlineShoppingController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	BookingService bookingService;
 	
 	@Autowired
     private JavaMailSender javaMailSender;
@@ -127,5 +132,27 @@ public class OnlineShoppingController {
         
         return myMessage;
 	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/booking")
+	public Booking saveBookingReq(@RequestBody Booking booking) {
+		Booking savedBookingReq = bookingService.saveBooking(booking);
+		return savedBookingReq;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/booking")
+	public List<Booking> fetchAllBookingReq() {
+		List<Booking> bookingReqList = bookingService.getAllBookingReqs();	
+		return bookingReqList;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/booking")
+	public String deleteBookingReq(@PathVariable("bookingReqId") Long bookReqId) {
+		bookingService.deleteBookingReq(bookReqId);	
+		return "BookingReq Deleted Successfully";
+	}
+
 	
 }
