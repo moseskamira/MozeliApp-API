@@ -32,7 +32,7 @@ public class SwaggerConfig {
 
 	private ApiInfo myAPIInfo() {
 		ApiInfo myAPIInfo = new ApiInfo(
-				"Online Shopping System API",
+				"MOZELI API",
 				"Apache 2.0",
 				"",
 				"",

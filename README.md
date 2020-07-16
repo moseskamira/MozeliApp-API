@@ -1,5 +1,5 @@
-# Online Shopping System API
-The Online Shopping System API was implemented in Java as a Back-end project for managing online shopping 
+# MOZELI-APP API
+This API was implemented in Java as a Back-end project for Mozeli App.
 
 ##### TECHNOLOGY/ APPROACH/ LANGUAGE
 - Spring Boot.
@@ -18,7 +18,4 @@ The Online Shopping System API was implemented in Java as a Back-end project for
 ###### Documented API Link:
 - https://online-shopping-api.herokuapp.com/swagger-ui.html#/online-shopping-controller
 
-
-##### API SCREENSHOT:
-![API](/images/api.png)
 

@@ -1,6 +1,7 @@
 package com.online.shopping.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,35 +10,37 @@ import org.springframework.stereotype.Service;
 import com.online.shopping.dao.ProductCategoryDAO;
 import com.online.shopping.models.ProductCategory;
 
+
+
 @Service
 public class ProductCategoryService {
 	@Autowired
-	ProductCategoryDAO productCategoryDao;
+	ProductCategoryDAO albumDao;
 	
-	public ProductCategory addProductCategory(ProductCategory productCategory) {
-		ProductCategory savedProdCat = productCategoryDao.saveAndFlush(productCategory);
-		return savedProdCat;
+	public ProductCategory addAlbum(ProductCategory album) {
+		ProductCategory savedAlbum = albumDao.saveAndFlush(album);
+		return savedAlbum;
 	}
 	
-	public Optional<ProductCategory> getSingleProductCategory(Long id) {
-		Optional<ProductCategory> fetchedProdCat = productCategoryDao.findById(id);
-		return fetchedProdCat;
+	public Optional<ProductCategory> getSingleAlbum(Long id) {
+		Optional<ProductCategory> fetchedAlbum = albumDao.findById(id);
+		return fetchedAlbum;
 	}
 	
-	public List<ProductCategory> getAllProductCategories() {
-		List<ProductCategory> availableProdCatList = productCategoryDao.findAll();
-		return availableProdCatList;
+	public List<ProductCategory> getAllAlbum() {
+		List<ProductCategory> availableAlbumList = albumDao.findAll();
+		return availableAlbumList;
 	}
 	
-	public String deleteProductCategory(Long id) {
-		productCategoryDao.deleteById(id);
+	public String deleteAlbum(Long id) {
+		albumDao.deleteById(id);
 		return "Successfully Deleted";
 	}
 	
-	public ProductCategory updateProductCategory(Long id, ProductCategory prodCat) {
-		ProductCategory prodCatToUpdate = productCategoryDao.getOne(id);
-		prodCatToUpdate.setCatName(prodCat.getCatName());
-		ProductCategory updatedProdCat = productCategoryDao.saveAndFlush(prodCatToUpdate);
-		return updatedProdCat;
+	public ProductCategory updateAlbum(Long id, ProductCategory album) {
+		ProductCategory albumToUpdate = albumDao.getOne(id);
+		albumToUpdate.setCatName(album.getCatName());
+		ProductCategory updatedAlbum = albumDao.saveAndFlush(albumToUpdate);
+		return updatedAlbum;
 	}
 }
