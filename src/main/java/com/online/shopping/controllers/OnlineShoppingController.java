@@ -31,7 +31,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @RestController
-@RequestMapping("onlineshopping")
+@RequestMapping("mozeli")
 public class OnlineShoppingController {
 	@Autowired
 	ProductCategoryService prodCatService;
@@ -46,74 +46,74 @@ public class OnlineShoppingController {
     private JavaMailSender javaMailSender;
 
 	@CrossOrigin(origins = "*")
-	@PostMapping("/category")
+	@PostMapping("/album")
 	public ProductCategory addProductCategory(@RequestBody ProductCategory prodCat) {
 		ProductCategory addedProdCat = prodCatService.addProductCategory(prodCat);
 		return addedProdCat;
 	}
 	
-	@GetMapping("/category/{catId}")
-	public Optional<ProductCategory> fetchSingleProductCategory(@PathVariable("catId") Long id) {
+	@GetMapping("/album/{albumId}")
+	public Optional<ProductCategory> fetchSingleProductCategory(@PathVariable("albumId") Long id) {
 		Optional<ProductCategory> fetchedProdCat = prodCatService.getSingleProductCategory(id);
 		return fetchedProdCat;
 	}
 	
 	@CrossOrigin(origins = "*")
-	@GetMapping("/category")
+	@GetMapping("/album")
 	public ResponseEntity<List<ProductCategory>> fetAllProductCategories() {
 		List<ProductCategory> prodCatList = prodCatService.getAllProductCategories();
 		return ResponseEntity.ok().body(prodCatList);
 	}
 	
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/category/{catId}")
-	public String deleteProductCategory(@PathVariable("catId") Long id) {
+	@DeleteMapping("/album/{albumId}")
+	public String deleteProductCategory(@PathVariable("albumId") Long id) {
 		prodCatService.deleteProductCategory(id);
 		return "Successfully Deleted Product Category";
 	}
 	
-	@PutMapping("/category/{catId}")
-	public ProductCategory updateProductCategory(@PathVariable("catId") Long id, @RequestBody ProductCategory prodCat) {
+	@PutMapping("/album/{albumId}")
+	public ProductCategory updateProductCategory(@PathVariable("albumId") Long id, @RequestBody ProductCategory prodCat) {
 		ProductCategory updatedProdCat = prodCatService.updateProductCategory(id, prodCat);
 		return updatedProdCat;
 	}
 	
 	@CrossOrigin(origins = "*")
-	@PostMapping("/category/{catId}/product")
-	public Product addProduct(@PathVariable("catId") Long prodCatId, @RequestBody Product product) {
+	@PostMapping("/album/{albumId}/song")
+	public Product addProduct(@PathVariable("albumId") Long prodCatId, @RequestBody Product product) {
 		Product addedProduct = productService.saveProduct(prodCatId, product);
 		return addedProduct;
 	}
 	
 	@CrossOrigin(origins = "*")
-	@GetMapping("/category/product")
+	@GetMapping("/album/song")
 	public List<Product> fetchAllProducts() {
 		List<Product> productsList = productService.getAllProducts();
 		return productsList;
 	}
 	
 	@CrossOrigin(origins = "*")
-	@GetMapping("/category/{catId}/product")
-	public List<Product> fetchProductsPerCategory(@PathVariable("catId") Long id) {
+	@GetMapping("/album/{albumId}/song")
+	public List<Product> fetchProductsPerCategory(@PathVariable("albumId") Long id) {
 		List<Product> catProductsList = productService.getProductsPerCategory(id);	
 		return catProductsList;
 	}
 	@CrossOrigin(origins = "*")
-	@GetMapping("/category/{catId}/product/{prodId}")
-	public Product fetchSingleProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
+	@GetMapping("/album/{albumId}/song/{songId}")
+	public Product fetchSingleProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id) {
 		Product myProduct = productService.getSingleProduct(prodCatId, id);
 		return myProduct;
 	}
 	
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/category/{catId}/product/{prodId}")
-	public String deleteProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id) {
+	@DeleteMapping("/album/{albumId}/song/{songId}")
+	public String deleteProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id) {
 		productService.deleteProduct(prodCatId, id);	
 		return "Product Deleted Successfully";
 	}
 	@CrossOrigin(origins = "*")
-	@PutMapping("/category/{catId}/product/{prodId}")
-	public Product updateProduct(@PathVariable("catId") Long prodCatId, @PathVariable("prodId") Long id, @RequestBody Product product) {
+	@PutMapping("/album/{albumId}/song/{songId}")
+	public Product updateProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id, @RequestBody Product product) {
 		Product updatedProd = productService.updateProduct(prodCatId, id, product);
 		return updatedProd;
 	}
