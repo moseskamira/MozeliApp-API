@@ -80,40 +80,40 @@ public class OnlineShoppingController {
 	@CrossOrigin(origins = "*")
 	@PostMapping("/album/{albumId}/song")
 	public Product addSong(@PathVariable("albumId") Long albumId, @RequestBody Product song) {
-		Product addedSong = songService.saveProduct(albumId, song);
+		Product addedSong = songService.saveSong(albumId, song);
 		return addedSong;
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/song")
 	public List<Product> fetchAllSong() {
-		List<Product> songsList = songService.getAllProducts();
+		List<Product> songsList = songService.getAllSongs();
 		return songsList;
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/{albumId}/song")
 	public List<Product> fetchSongsPerAlbum(@PathVariable("albumId") Long id) {
-		List<Product> songsList = songService.getProductsPerCategory(id);	
+		List<Product> songsList = songService.getSongsPerAlbum(id);	
 		return songsList;
 	}
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/{albumId}/song/{songId}")
 	public Product fetchSingleProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id) {
-		Product myProduct = songService.getSingleProduct(prodCatId, id);
+		Product myProduct = songService.getSingleSong(prodCatId, id);
 		return myProduct;
 	}
 	
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("/album/{albumId}/song/{songId}")
 	public String deleteSong(@PathVariable("albumId") Long albumId, @PathVariable("songId") Long id) {
-		songService.deleteProduct(albumId, id);	
+		songService.deleteSong(albumId, id);	
 		return "Song Deleted Successfully";
 	}
 	@CrossOrigin(origins = "*")
 	@PutMapping("/album/{albumId}/song/{songId}")
 	public Product updateSong(@PathVariable("albumId") Long albumId, @PathVariable("songId") Long id, @RequestBody Product song) {
-		Product updatedSong = songService.updateProduct(albumId, id, song);
+		Product updatedSong = songService.updateSong(albumId, id, song);
 		return updatedSong;
 	}
 	
