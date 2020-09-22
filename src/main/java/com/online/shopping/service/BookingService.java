@@ -2,6 +2,7 @@ package com.online.shopping.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public class BookingService {
 	public Booking saveBooking(Booking booking) {
 		Booking myBookingObj = new Booking();
 		myBookingObj.setCountry(booking.getCountry());
+		myBookingObj.setCountryRegion(booking.getCountryRegion());
+		myBookingObj.setRegionalAmount(booking.getRegionalAmount());
 		myBookingObj.setEventName(booking.getEventName());
 		myBookingObj.setEventDate(booking.getEventDate());
 		myBookingObj.setEventTime(booking.getEventTime());
@@ -25,6 +28,7 @@ public class BookingService {
 		myBookingObj.setSponsorNIN(booking.getSponsorNIN());
 		myBookingObj.setSponsorPhone(booking.getSponsorPhone());
 		myBookingObj.setSponsorEmail(booking.getSponsorEmail());
+		myBookingObj.setSponsorLocation(booking.getSponsorLocation());
 		myBookingObj.setBookingReqTicket(booking.getBookingReqTicket());
 		
 		Booking bookingObj = bookingDao.saveAndFlush(myBookingObj);
@@ -38,8 +42,33 @@ public class BookingService {
 	
 	public String deleteBookingReq(Long bookReqId) {
 		Booking bookingReqToDelete = bookingDao.getOne(bookReqId);
-		bookingDao.delete(bookingReqToDelete);
-		return "Deleted Successfully";
+		if (bookingReqToDelete != null) {
+			if (!bookingReqToDelete.getSponsorFullName().isEmpty()) {
+				bookingDao.delete(bookingReqToDelete);
+				return "Deleted Successfully";
+				
+			}else {
+				return "Could Not Find Booking Request";
+			}
+			
+		}else {
+			return "Invalid Id Provided";
+		}
 	}
+	
+	public Booking fetchByTicketNumber(String ticketNumber) {
+		Booking booking = bookingDao.findByBookingReqTicket(ticketNumber);
+		if (booking != null) {
+			return booking;
+		}else {
+			Booking errorBooking = new Booking();
+			errorBooking.setSponsorFullName("");
+			
+			return errorBooking; 
+		}
+		
+	}
+	
+	
 
 }

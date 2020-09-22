@@ -1,11 +1,14 @@
 package com.online.shopping.models;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name="booking") 
@@ -19,6 +22,14 @@ public class Booking {
 	@Column(name="country")
 	String country;
 	
+	@Column(name="countryRegion")
+	@Nullable
+	String countryRegion;
+	
+	@Column(name="regionalAmount")
+	@Nullable
+	Double regionalAmount;
+	
 	@Column(name="eventName")
 	String eventName;
 	
@@ -30,6 +41,9 @@ public class Booking {
 	
 	@Column(name="eventTime")
 	String eventTime;
+	
+	@Column(name="bookingReqTicket")
+	String bookingReqTicket;
 	
 	@Column(name="sponsorFullName")
 	String sponsorFullName;
@@ -43,29 +57,34 @@ public class Booking {
 	@Column(name="sponsorEmail")
 	String sponsorEmail;
 	
-	@Column(name="bookingReqTicket")
-	String bookingReqTicket;
+	@Column(name="sponsorLocation")
+	String sponsorLocation;
 
 	public Booking() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Booking(Long bookingReqId, String country, String eventName, String venueName, String eventDate,
-			String eventTime, String sponsorFullName, String sponsorNIN, String sponsorPhone, String sponsorEmail,
-			String bookingReqTicket) {
+	
+
+	public Booking(Long bookingReqId, String country, String countryRegion, Double regionalAmount, String eventName,
+			String venueName, String eventDate, String eventTime, String bookingReqTicket, String sponsorFullName,
+			String sponsorNIN, String sponsorPhone, String sponsorEmail, String sponsorLocation) {
 		super();
 		this.bookingReqId = bookingReqId;
 		this.country = country;
+		this.countryRegion = countryRegion;
+		this.regionalAmount = regionalAmount;
 		this.eventName = eventName;
 		this.venueName = venueName;
 		this.eventDate = eventDate;
 		this.eventTime = eventTime;
+		this.bookingReqTicket = bookingReqTicket;
 		this.sponsorFullName = sponsorFullName;
 		this.sponsorNIN = sponsorNIN;
 		this.sponsorPhone = sponsorPhone;
 		this.sponsorEmail = sponsorEmail;
-		this.bookingReqTicket = bookingReqTicket;
+		this.sponsorLocation = sponsorLocation;
 	}
 
 	public Long getBookingReqId() {
@@ -156,12 +175,41 @@ public class Booking {
 		this.bookingReqTicket = bookingReqTicket;
 	}
 
+	public String getCountryRegion() {
+		return countryRegion;
+	}
+
+	public void setCountryRegion(String countryRegion) {
+		this.countryRegion = countryRegion;
+	}
+
+	public Double getRegionalAmount() {
+		return regionalAmount;
+	}
+
+	public void setRegionalAmount(Double regionalAmount) {
+		this.regionalAmount = regionalAmount;
+	}
+
+	public String getSponsorLocation() {
+		return sponsorLocation;
+	}
+
+	public void setSponsorLocation(String sponsorLocation) {
+		this.sponsorLocation = sponsorLocation;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Booking [bookingReqId=" + bookingReqId + ", country=" + country + ", eventName=" + eventName
-				+ ", venueName=" + venueName + ", eventDate=" + eventDate + ", eventTime=" + eventTime
+		return "Booking [bookingReqId=" + bookingReqId + ", country=" + country + ", countryRegion=" + countryRegion
+				+ ", regionalAmount=" + regionalAmount + ", eventName=" + eventName + ", venueName=" + venueName
+				+ ", eventDate=" + eventDate + ", eventTime=" + eventTime + ", bookingReqTicket=" + bookingReqTicket
 				+ ", sponsorFullName=" + sponsorFullName + ", sponsorNIN=" + sponsorNIN + ", sponsorPhone="
-				+ sponsorPhone + ", sponsorEmail=" + sponsorEmail + ", bookingReqTicket=" + bookingReqTicket + "]";
+				+ sponsorPhone + ", sponsorEmail=" + sponsorEmail + ", sponsorLocation=" + sponsorLocation + "]";
 	}
+
+	
 	
 }
