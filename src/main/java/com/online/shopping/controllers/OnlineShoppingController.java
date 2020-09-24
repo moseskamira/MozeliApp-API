@@ -18,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping.models.Admin;
 import com.online.shopping.models.Booking;
 import com.online.shopping.models.Message;
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
+import com.online.shopping.models.Region;
+import com.online.shopping.service.AdminService;
 import com.online.shopping.service.BookingService;
 import com.online.shopping.service.ProductCategoryService;
 import com.online.shopping.service.ProductService;
+import com.online.shopping.service.RegionService;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -42,7 +46,13 @@ public class OnlineShoppingController {
 	BookingService bookingService;
 	
 	@Autowired
+	AdminService adminService;
+	
+	@Autowired
     private JavaMailSender javaMailSender;
+	
+	@Autowired
+	RegionService regionService;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/album")
@@ -147,11 +157,71 @@ public class OnlineShoppingController {
 	}
 	
 	@CrossOrigin(origins = "*")
-	@DeleteMapping("/booking")
-	public String deleteBookingReq(@PathVariable("bookingReqId") Long bookReqId) {
-		bookingService.deleteBookingReq(bookReqId);	
-		return "BookingReq Deleted Successfully";
+	@GetMapping("/booking/{bookingReqTicket}")
+	public Booking fetchByTicket(@PathVariable("bookingReqTicket") String ticketNo) {
+		Booking bookingObj = bookingService.fetchByTicketNumber(ticketNo);	
+		return bookingObj;
 	}
-
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/booking/{bookingReqId}")
+	public String deleteBookingReq(@PathVariable("bookingReqId") Long bookReqId) {
+		String resp = bookingService.deleteBookingReq(bookReqId);	
+		return resp;
+	}
+	
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/region")
+	public Region addRegion(@RequestBody Region region) {
+		Region addedRegion = regionService.saveRegion(region);
+				
+		return addedRegion;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/region")
+	public List<Region> fetchAllRegions() {
+		List<Region> regionsList = regionService.getAllRegions();	
+		return regionsList;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/region/{regionId}")
+	public String deleteRegion(@PathVariable("regionId") Long regionId) {
+		regionService.deleteRegion(regionId);	
+		return "Successfully Deleted Region";
+	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/admin")
+	public Admin addAdmin(@RequestBody Admin admin) {
+		Admin addedAdmin = adminService.saveAdmin(admin);
+		return addedAdmin;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/admin")
+	public List<Admin> fetchAllAdmins() {
+		List<Admin> adminsList = adminService.getAllAdmins();	
+		return adminsList;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/admin/{adminId}")
+	public String deleteAdmin(@PathVariable("adminId") Long adminId) {
+		String resp = adminService.deleteAdmin(adminId);
+		return resp;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/admin/{adminUserName}")
+	public Admin fetchByUserName(@PathVariable("adminUserName") String userName) {
+		Admin adminObj = adminService.getAdminByUserName(userName);	
+		return adminObj;
+		
+	}
+	
+	
 	
 }
