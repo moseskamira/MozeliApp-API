@@ -83,4 +83,17 @@ public class ProductService {
 		return updatedSong;
 		
 	}
+	
+	public List<Product> getAllSongsFromRecent() {
+		List<Product> songList = songDao.findAllSongsDescending();
+		return songList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -46,11 +46,9 @@ public class BookingService {
 			if (!bookingReqToDelete.getSponsorFullName().isEmpty()) {
 				bookingDao.delete(bookingReqToDelete);
 				return "Deleted Successfully";
-				
 			}else {
 				return "Could Not Find Booking Request";
 			}
-			
 		}else {
 			return "Invalid Id Provided";
 		}
@@ -63,10 +61,8 @@ public class BookingService {
 		}else {
 			Booking errorBooking = new Booking();
 			errorBooking.setSponsorFullName("");
-			
 			return errorBooking; 
 		}
-		
 	}
 	
 	
