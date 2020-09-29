@@ -240,4 +240,20 @@ public class OnlineShoppingController {
 		return profile;
 	}
 	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/profiles")
+	public List<Profile> fetchAllProfiles() {
+		List<Profile> profilesList = profileService.fetchAllProfiles();	
+		return profilesList;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/profile/{profileId}")
+	public String deleteProfile(@PathVariable("profileId") Long profId) {
+		String resp = profileService.deleteProfile(profId);
+		return resp;
+	}
+	
+	
+	
 }
