@@ -1,5 +1,8 @@
 package com.online.shopping.service;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +25,15 @@ public class ProfileService {
 	public Profile getLastUpdatedProfile() {
 		Profile lastUpdatedProfile = profileDao.findTopByOrderByProfileIdDesc();
 		return lastUpdatedProfile;
+	}
+	
+	public String deleteProfile(Long profileId) {
+		Profile profileToDelete = profileDao.getOne(profileId);
+		profileDao.delete(profileToDelete);
+		return "Successfully Deleted Profile";
+	}
+	
+	public List<Profile> fetchAllProfiles() {
+		return profileDao.findAll();
 	}
 }
