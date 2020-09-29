@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping.models.Admin;
 import com.online.shopping.models.Booking;
+import com.online.shopping.models.FeedBack;
 import com.online.shopping.models.Message;
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
@@ -27,6 +28,7 @@ import com.online.shopping.models.Profile;
 import com.online.shopping.models.Region;
 import com.online.shopping.service.AdminService;
 import com.online.shopping.service.BookingService;
+import com.online.shopping.service.FeedBackService;
 import com.online.shopping.service.ProductCategoryService;
 import com.online.shopping.service.ProductService;
 import com.online.shopping.service.ProfileService;
@@ -58,6 +60,9 @@ public class OnlineShoppingController {
 	
 	@Autowired
 	ProfileService profileService;
+	
+	@Autowired
+	FeedBackService feedBackService;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/album")
@@ -145,6 +150,7 @@ public class OnlineShoppingController {
         javaMailSender.send(myMessage);
         
         return myMessage;
+        
 	}
 	
 	@CrossOrigin(origins = "*")
@@ -254,6 +260,25 @@ public class OnlineShoppingController {
 		return resp;
 	}
 	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/comment")
+	public FeedBack addComment(@RequestBody FeedBack feedBack) {
+		FeedBack addedComment = feedBackService.addFeedBack(feedBack);
+		return addedComment;
+	}
 	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/comment")
+	public List<FeedBack> fetchAllComment() {
+		List<FeedBack> commentsList = feedBackService.fetchAllComments();	
+		return commentsList;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/comment/{feedBackId}")
+	public String deleteComment(@PathVariable("feedBackId") Long feedId) {
+		String resp = feedBackService.deleteComment(feedId);
+		return resp;
+	}
 	
 }

@@ -76,11 +76,4 @@ public class Admin {
 		return "Admin [adminId=" + adminId + ", adminFullName=" + adminFullName + ", adminUserName=" + adminUserName
 				+ ", adminPassword=" + adminPassword + "]";
 	}
-	
-	
-	
-	
-	
-	
-
 }

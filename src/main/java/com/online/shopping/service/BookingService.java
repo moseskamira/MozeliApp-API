@@ -19,6 +19,7 @@ public class BookingService {
 		Booking myBookingObj = new Booking();
 		myBookingObj.setCountry(booking.getCountry());
 		myBookingObj.setCountryRegion(booking.getCountryRegion());
+		myBookingObj.setCountryCurrency(booking.getCountryCurrency());
 		myBookingObj.setRegionalAmount(booking.getRegionalAmount());
 		myBookingObj.setEventName(booking.getEventName());
 		myBookingObj.setEventDate(booking.getEventDate());
