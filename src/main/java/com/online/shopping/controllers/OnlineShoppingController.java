@@ -23,11 +23,13 @@ import com.online.shopping.models.Booking;
 import com.online.shopping.models.Message;
 import com.online.shopping.models.Product;
 import com.online.shopping.models.ProductCategory;
+import com.online.shopping.models.Profile;
 import com.online.shopping.models.Region;
 import com.online.shopping.service.AdminService;
 import com.online.shopping.service.BookingService;
 import com.online.shopping.service.ProductCategoryService;
 import com.online.shopping.service.ProductService;
+import com.online.shopping.service.ProfileService;
 import com.online.shopping.service.RegionService;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -53,6 +55,9 @@ public class OnlineShoppingController {
 	
 	@Autowired
 	RegionService regionService;
+	
+	@Autowired
+	ProfileService profileService;
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/album")
@@ -97,7 +102,7 @@ public class OnlineShoppingController {
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/song")
 	public List<Product> fetchAllSong() {
-		List<Product> songsList = songService.getAllSongs();
+		List<Product> songsList = songService.getAllSongsFromRecent();
 		return songsList;
 	}
 	
@@ -219,9 +224,20 @@ public class OnlineShoppingController {
 	public Admin fetchByUserName(@PathVariable("adminUserName") String userName) {
 		Admin adminObj = adminService.getAdminByUserName(userName);	
 		return adminObj;
-		
 	}
 	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/profile")
+	public Profile addNewProfile(@RequestBody Profile profile) {
+		Profile addedProfile = profileService.saveProfile(profile);
+		return addedProfile;
+	}
 	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/profile")
+	public Profile fetchLatestProfile() {
+		Profile profile = profileService.getLastUpdatedProfile();	
+		return profile;
+	}
 	
 }
