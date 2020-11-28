@@ -26,6 +26,9 @@ public class Booking {
 	@Nullable
 	String countryRegion;
 	
+	@Column(name="countryCurrency")
+	String countryCurrency;
+	
 	@Column(name="regionalAmount")
 	@Nullable
 	Double regionalAmount;
@@ -64,16 +67,16 @@ public class Booking {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	
-
-	public Booking(Long bookingReqId, String country, String countryRegion, Double regionalAmount, String eventName,
-			String venueName, String eventDate, String eventTime, String bookingReqTicket, String sponsorFullName,
-			String sponsorNIN, String sponsorPhone, String sponsorEmail, String sponsorLocation) {
+	public Booking(Long bookingReqId, String country, String countryRegion, String countryCurrency,
+			Double regionalAmount, String eventName, String venueName, String eventDate, String eventTime,
+			String bookingReqTicket, String sponsorFullName, String sponsorNIN, String sponsorPhone,
+			String sponsorEmail, String sponsorLocation) {
 		super();
 		this.bookingReqId = bookingReqId;
 		this.country = country;
 		this.countryRegion = countryRegion;
+		this.countryCurrency = countryCurrency;
 		this.regionalAmount = regionalAmount;
 		this.eventName = eventName;
 		this.venueName = venueName;
@@ -198,18 +201,23 @@ public class Booking {
 	public void setSponsorLocation(String sponsorLocation) {
 		this.sponsorLocation = sponsorLocation;
 	}
+	
+	public String getCountryCurrency() {
+		return countryCurrency;
+	}
 
-
+	public void setCountryCurrency(String countryCurrency) {
+		this.countryCurrency = countryCurrency;
+	}
 
 	@Override
 	public String toString() {
 		return "Booking [bookingReqId=" + bookingReqId + ", country=" + country + ", countryRegion=" + countryRegion
-				+ ", regionalAmount=" + regionalAmount + ", eventName=" + eventName + ", venueName=" + venueName
-				+ ", eventDate=" + eventDate + ", eventTime=" + eventTime + ", bookingReqTicket=" + bookingReqTicket
-				+ ", sponsorFullName=" + sponsorFullName + ", sponsorNIN=" + sponsorNIN + ", sponsorPhone="
-				+ sponsorPhone + ", sponsorEmail=" + sponsorEmail + ", sponsorLocation=" + sponsorLocation + "]";
+				+ ", countryCurrency=" + countryCurrency + ", regionalAmount=" + regionalAmount + ", eventName="
+				+ eventName + ", venueName=" + venueName + ", eventDate=" + eventDate + ", eventTime=" + eventTime
+				+ ", bookingReqTicket=" + bookingReqTicket + ", sponsorFullName=" + sponsorFullName + ", sponsorNIN="
+				+ sponsorNIN + ", sponsorPhone=" + sponsorPhone + ", sponsorEmail=" + sponsorEmail
+				+ ", sponsorLocation=" + sponsorLocation + "]";
 	}
-
-	
 	
 }
