@@ -16,6 +16,6 @@ This API was implemented in Java as a Back-end project for Mozeli App.
 
 ##### HOW TO TEST THE ONLINE SHOPPING SYSTEM API
 ###### Documented API Link:
-- https://online-shopping-api.herokuapp.com/swagger-ui.html#/online-shopping-controller
+- https://online-shopping-api.herokuapp.com/swagger-ui.html#mozeli-quick-app-controller
 
 
