@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.mobifest.mozeli.dao.AlbumDAO;
@@ -19,7 +20,7 @@ public class SongService {
 	@Autowired
 	AlbumDAO albumDao;
 	
-	public Song saveSong(Long albumId, Song song) {
+	public ResponseEntity<Song> saveSong(Long albumId, Song song) {
 		Album album = albumDao.getOne(albumId);
 		Song mySong = new Song();
 		mySong.setProdCat(album);
@@ -32,21 +33,21 @@ public class SongService {
 		mySong.setUnitPrice(song.getUnitPrice());
 		mySong.setProdLike(song.isProdLike());
 		Song savedSong = songDao.saveAndFlush(mySong);
-		return savedSong;
+		return ResponseEntity.ok().body(savedSong);
 	}
 	
-	public List<Song> getAllSongs() {
+	public ResponseEntity<List<Song>> getAllSongs() {
 		List<Song> songList = songDao.findAll();
-		return !songList.isEmpty() ? songList : new ArrayList<Song>();
+		return !songList.isEmpty() ? ResponseEntity.ok().body(songList) : ResponseEntity.ok().body(new ArrayList<Song>());
 	}
 	
-	public List<Song> getSongsPerAlbum(Long albumId) {
+	public ResponseEntity<List<Song>> getSongsPerAlbum(Long albumId) {
 		Album album = albumDao.getOne(albumId);
 		List<Song> songsList = album.getProducts();
-		return !songsList.isEmpty() ? songsList : new ArrayList<Song>();
+		return !songsList.isEmpty() ? ResponseEntity.ok().body(songsList) : ResponseEntity.ok().body(new ArrayList<Song>());
 	}
 	
-	public Song getSingleSong(Long albumId, Long songId) {
+	public ResponseEntity<Song> getSingleSong(Long albumId, Long songId) {
 		Album album = albumDao.getOne(albumId);
 		List<Song> songsList = album.getProducts();
 		Song mySong = null;
@@ -57,16 +58,16 @@ public class SongService {
 				}
 			}
 		}
-		return mySong;
+		return ResponseEntity.ok().body(mySong);
 	}
 	
-	public String deleteSong(Long albumId, Long songId) {
+	public ResponseEntity<String> deleteSong(Long albumId, Long songId) {
 		Song songToBeDeleted = songDao.getOne(songId);
 		songDao.delete(songToBeDeleted);
-		return "Successfully Deleted Song";
+		return ResponseEntity.ok().body("Successfully Deleted Song");
 	}
 	
-	public Song updateSong(Long albumId, Long songId, Song song) {
+	public ResponseEntity<Song> updateSong(Long albumId, Long songId, Song song) {
 		Album album = albumDao.getOne(albumId);
 		List<Song> mySongsList = album.getProducts();
 		Song updatedSong = null;
@@ -80,12 +81,12 @@ public class SongService {
 				}
 			}
 		}
-		return updatedSong;
+		return ResponseEntity.ok().body(updatedSong);
 	}
 	
-	public List<Song> getAllSongsFromRecent() {
+	public ResponseEntity<List<Song>> getAllSongsFromRecent() {
 		List<Song> songList = songDao.findAllSongsDescending();
-		return !songList.isEmpty() ? songList : new ArrayList<Song>();
+		return !songList.isEmpty() ? ResponseEntity.ok().body(songList) : ResponseEntity.ok().body(new ArrayList<Song>());
 	}
 	
 }

@@ -33,23 +33,23 @@ public class AdminService {
 	@Autowired
 	private JWTUtil jwtUtil;
 	
-	public Admin saveAdmin(Admin admin) {
+	public ResponseEntity<Admin> saveAdmin(Admin admin) {
 		Admin adminToSave = new Admin();
 		adminToSave.setAdminFullName(admin.getAdminFullName());
 		adminToSave.setAdminUserName(admin.getAdminUserName());
 		adminToSave.setAdminPassword(admin.getAdminPassword());
 		Admin savedAdmin = adminDao.saveAndFlush(adminToSave);
-		return savedAdmin;
+		return ResponseEntity.ok().body(savedAdmin);
 		}
 	
-	public List<Admin> getAllAdmins() {
+	public ResponseEntity<List<Admin>> getAllAdmins() {
 		List<Admin> adminList = adminDao.findAll();
-		return !adminList.isEmpty() ? adminList : new ArrayList<Admin>();
+		return !adminList.isEmpty() ? ResponseEntity.ok().body(adminList) : ResponseEntity.ok().body(new ArrayList<Admin>());
 		}
 	
-	public Admin getAdminByUserName(String userName) {
+	public ResponseEntity<Admin> getAdminByUserName(String userName) {
 		Admin admin = adminDao.findByUserName(userName);
-		return admin != null ? admin  : returnEmptyAdminObj();
+		return admin != null ? ResponseEntity.ok().body(admin)  : ResponseEntity.ok().body(returnEmptyAdminObj());
 		}
 	
 	private Admin returnEmptyAdminObj() {

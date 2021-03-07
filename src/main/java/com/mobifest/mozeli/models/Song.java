@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="product") 
+@Table(name="songTable") 
 public class Song {
 	
 	@Id
@@ -50,10 +50,7 @@ public class Song {
 
 	public Song() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	
 
 	public Song(Long prodId, String prodName, Long unitPrice, String prodDescrip, String prodImageUrl,
 			String audioUrl, String studioName, String producerName, boolean prodLike, Album prodCat) {
@@ -69,8 +66,6 @@ public class Song {
 		this.prodLike = prodLike;
 		this.prodCat = prodCat;
 	}
-
-
 
 	public Long getProdId() {
 		return prodId;

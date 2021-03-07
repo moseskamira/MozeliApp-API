@@ -1,11 +1,7 @@
 package com.mobifest.mozeli.controllers;
 
-
 import java.util.List;
-
-
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.mobifest.mozeli.models.Admin;
 import com.mobifest.mozeli.models.Booking;
 import com.mobifest.mozeli.models.FeedBack;
@@ -28,6 +23,7 @@ import com.mobifest.mozeli.models.Profile;
 import com.mobifest.mozeli.models.Region;
 import com.mobifest.mozeli.service.AdminService;
 import com.mobifest.mozeli.service.BookingService;
+import com.mobifest.mozeli.service.EmailNotificationService;
 import com.mobifest.mozeli.service.FeedBackService;
 import com.mobifest.mozeli.service.AlbumService;
 import com.mobifest.mozeli.service.SongService;
@@ -36,7 +32,6 @@ import com.mobifest.mozeli.service.RegionService;
 import com.mobifest.mozeli.utils.AuthenticationResponse;
 
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 
 @RestController
 @RequestMapping("mozeli")
@@ -54,9 +49,6 @@ public class MozeliQuickAppController {
 	AdminService adminService;
 	
 	@Autowired
-    private JavaMailSender javaMailSender;
-	
-	@Autowired
 	RegionService regionService;
 	
 	@Autowired
@@ -64,15 +56,30 @@ public class MozeliQuickAppController {
 	
 	@Autowired
 	FeedBackService feedBackService;
+	
+	@Autowired
+	EmailNotificationService emailNotificationService;
 
 	@CrossOrigin(origins = "*")
+	@PostMapping("/login")
+	public ResponseEntity<AuthenticationResponse> adminLogin(String username, String password) {
+		ResponseEntity<AuthenticationResponse> response = null;
+		try {
+			response = adminService.login(username, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	@CrossOrigin(origins = "*")
 	@PostMapping("/album")
-	public Album addSongAlbum(@RequestBody Album songAlbum) {
+	public ResponseEntity<Album> addSongAlbum(@RequestBody Album songAlbum) {
 		return albumService.addAlbum(songAlbum);
 	}
 	
 	@GetMapping("/album/{albumId}")
-	public Optional<Album> fetchSingleAlbum(@PathVariable("albumId") Long id) {
+	public ResponseEntity<Optional<Album>> fetchSingleAlbum(@PathVariable("albumId") Long id) {
 		return albumService.getSingleAlbum(id);
 	}
 	
@@ -84,37 +91,36 @@ public class MozeliQuickAppController {
 	
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("/album/{albumId}")
-	public String deleteAlbum(@PathVariable("albumId") Long id) {
-		albumService.deleteAlbum(id);
-		return "Successfully Deleted Album";
+	public ResponseEntity<String> deleteAlbum(@PathVariable("albumId") Long id) {
+		return albumService.deleteAlbum(id);
 	}
 	
 	@PutMapping("/album/{albumId}")
-	public Album updateAlbum(@PathVariable("albumId") Long id, @RequestBody Album album) {
+	public ResponseEntity<Album> updateAlbum(@PathVariable("albumId") Long id, @RequestBody Album album) {
 		return albumService.updateAlbum(id, album);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/album/{albumId}/song")
-	public Song addSong(@PathVariable("albumId") Long albumId, @RequestBody Song song) {
+	public ResponseEntity<Song> addSong(@PathVariable("albumId") Long albumId, @RequestBody Song song) {
 		return songService.saveSong(albumId, song);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/song")
-	public List<Song> fetchAllSong() {
+	public ResponseEntity<List<Song>> fetchAllSong() {
 		return songService.getAllSongsFromRecent();
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/{albumId}/song")
-	public List<Song> fetchSongsPerAlbum(@PathVariable("albumId") Long id) {
+	public ResponseEntity<List<Song>> fetchSongsPerAlbum(@PathVariable("albumId") Long id) {
 		return songService.getSongsPerAlbum(id);	
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/album/{albumId}/song/{songId}")
-	public Song fetchSingleProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id) {
+	public ResponseEntity<Song> fetchSingleProduct(@PathVariable("albumId") Long prodCatId, @PathVariable("songId") Long id) {
 		return songService.getSingleSong(prodCatId, id);
 	}
 	
@@ -126,40 +132,31 @@ public class MozeliQuickAppController {
 	}
 	@CrossOrigin(origins = "*")
 	@PutMapping("/album/{albumId}/song/{songId}")
-	public Song updateSong(@PathVariable("albumId") Long albumId, @PathVariable("songId") Long id, @RequestBody Song song) {
+	public ResponseEntity<Song> updateSong(@PathVariable("albumId") Long albumId, @PathVariable("songId") Long id, @RequestBody Song song) {
 		return songService.updateSong(albumId, id, song);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/sendNotification")
 	public SimpleMailMessage sendEmailMessage(@RequestBody Message emailMessage) {
-		SimpleMailMessage myMessage = new SimpleMailMessage();
-		String recipient = emailMessage.getTo();
-        String senderSubject = emailMessage.getSubject();
-        String myText = emailMessage.getText();
-        myMessage.setTo(recipient);
-        myMessage.setSubject(senderSubject);
-        myMessage.setText(myText);
-        javaMailSender.send(myMessage);
-        return myMessage;
-        
+		return emailNotificationService.sendEmailMessage(emailMessage);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/booking")
-	public Booking saveBookingReq(@RequestBody Booking booking) {
+	public ResponseEntity<Booking> saveBookingReq(@RequestBody Booking booking) {
 		return bookingService.saveBooking(booking);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/booking")
-	public List<Booking> fetchAllBookingReq() {
+	public ResponseEntity<List<Booking>> fetchAllBookingReq() {
 		return bookingService.getAllBookingReqs();	
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/booking/{bookingReqTicket}")
-	public Booking fetchByTicket(@PathVariable("bookingReqTicket") String ticketNo) {
+	public ResponseEntity<Booking> fetchByTicket(@PathVariable("bookingReqTicket") String ticketNo) {
 		return bookingService.fetchByTicketNumber(ticketNo);	
 	}
 	
@@ -172,32 +169,31 @@ public class MozeliQuickAppController {
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/region")
-	public Region addRegion(@RequestBody Region region) {
+	public ResponseEntity<Region> addRegion(@RequestBody Region region) {
 		return regionService.saveRegion(region);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/region")
-	public List<Region> fetchAllRegions() {
+	public ResponseEntity<List<Region>> fetchAllRegions() {
 		return regionService.getAllRegions();	
 	}
 	
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("/region/{regionId}")
-	public String deleteRegion(@PathVariable("regionId") Long regionId) {
-		regionService.deleteRegion(regionId);	
-		return "Successfully Deleted Region";
+	public ResponseEntity<String> deleteRegion(@PathVariable("regionId") Long regionId) {
+		return regionService.deleteRegion(regionId);	
 	}
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/admin")
-	public Admin addAdmin(@RequestBody Admin admin) {
+	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
 		return adminService.saveAdmin(admin);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/admin")
-	public List<Admin> fetchAllAdmins() {
+	public ResponseEntity<List<Admin>> fetchAllAdmins() {
 		return adminService.getAllAdmins();	
 	}
 	
@@ -209,7 +205,7 @@ public class MozeliQuickAppController {
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/admin/{adminUserName}")
-	public Admin fetchByUserName(@PathVariable("adminUserName") String userName) {
+	public ResponseEntity<Admin> fetchByUserName(@PathVariable("adminUserName") String userName) {
 		return adminService.getAdminByUserName(userName);	
 	}
 	
@@ -239,34 +235,20 @@ public class MozeliQuickAppController {
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/comment")
-	public FeedBack addComment(@RequestBody FeedBack feedBack) {
+	public ResponseEntity<FeedBack> addComment(@RequestBody FeedBack feedBack) {
 		return feedBackService.addFeedBack(feedBack);
 	}
 	
 	@CrossOrigin(origins = "*")
 	@GetMapping("/comment")
-	public List<FeedBack> fetchAllComment() {
+	public ResponseEntity<List<FeedBack>> fetchAllComment() {
 		return feedBackService.fetchAllComments();	
 	}
 	
 	@CrossOrigin(origins = "*")
 	@DeleteMapping("/comment/{feedBackId}")
-	public String deleteComment(@PathVariable("feedBackId") Long feedId) {
+	public ResponseEntity<String> deleteComment(@PathVariable("feedBackId") Long feedId) {
 		return feedBackService.deleteComment(feedId);
 	}
-	
-	@CrossOrigin(origins = "*")
-	@PostMapping("/login")
-	public ResponseEntity<AuthenticationResponse> adminLogin(String username, String password) {
-		ResponseEntity<AuthenticationResponse> response = null;
-		try {
-			response = adminService.login(username, password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return response;
-	}
-	
 	
 }

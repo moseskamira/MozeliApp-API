@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name="productCategory")
+@Table(name="albumTable")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class Album {
 
