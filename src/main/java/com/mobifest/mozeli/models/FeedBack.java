@@ -38,8 +38,6 @@ public class FeedBack {
 		this.commenterEmail = commenterEmail;
 		this.commenterText = commenterText;
 	}
-
-	
 	
 	public Long getFeedBackId() {
 		return feedBackId;

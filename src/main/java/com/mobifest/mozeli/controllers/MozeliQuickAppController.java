@@ -62,14 +62,9 @@ public class MozeliQuickAppController {
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/login")
-	public ResponseEntity<AuthenticationResponse> adminLogin(String username, String password) {
+	public ResponseEntity<AuthenticationResponse> adminLogin(@RequestBody Admin myAdmin) throws Exception {
 		ResponseEntity<AuthenticationResponse> response = null;
-		try {
-			response = adminService.login(username, password);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return response;
+		return response = adminService.login(myAdmin);
 	}
 	
 	@CrossOrigin(origins = "*")
