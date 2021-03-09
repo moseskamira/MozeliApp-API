@@ -62,24 +62,16 @@ public class AdminService {
 			if (!adminToDelete.getAdminFullName().isEmpty()) {
 				adminDao.delete(adminToDelete);
 				return "Admin Deleted Successfully";
-				
 			}else {
 				return "Unable To Find Admin with Id"+adminId;			}
-			
 		}else {
 			return "Invalid Admin Id provided";
 			}
 		}
 
-	public ResponseEntity<AuthenticationResponse> login(String uName, String uPass) throws Exception {
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(uName, uPass));
-			
-		}catch(BadCredentialsException e) {
-			throw new Exception("Incorrect Username OR Password", e);
-		}
-		
-		final UserDetails userDetails = userDetailService.loadUserByUsername(uName);
+	public ResponseEntity<AuthenticationResponse> login(Admin admin) throws Exception {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(admin.getAdminUserName(), admin.getAdminPassword()));
+		final UserDetails userDetails = userDetailService.loadUserByUsername(admin.getAdminUserName());
 		String newGeneratedToken = jwtUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthenticationResponse(newGeneratedToken));
 	}
