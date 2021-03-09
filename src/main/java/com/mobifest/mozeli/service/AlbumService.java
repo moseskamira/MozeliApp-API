@@ -19,14 +19,14 @@ public class AlbumService {
 	@Autowired
 	AlbumDAO albumDao;
 	
-	public Album addAlbum(Album album) {
+	public ResponseEntity<Album> addAlbum(Album album) {
 		Album savedAlbum = albumDao.saveAndFlush(album);
-		return savedAlbum;
+		return ResponseEntity.ok().body(savedAlbum);
 	}
 	
-	public Optional<Album> getSingleAlbum(Long id) {
+	public ResponseEntity<Optional<Album>> getSingleAlbum(Long id) {
 		Optional<Album> fetchedAlbum = albumDao.findById(id);
-		return fetchedAlbum;
+		return ResponseEntity.ok().body(fetchedAlbum);
 	}
 	
 	public ResponseEntity<List<Album>> getAllAlbum() {
@@ -35,15 +35,15 @@ public class AlbumService {
 			ResponseEntity.ok().body(new ArrayList<Album>());
 	}
 	
-	public String deleteAlbum(Long id) {
+	public ResponseEntity<String> deleteAlbum(Long id) {
 		albumDao.deleteById(id);
-		return "Successfully Deleted";
+		return ResponseEntity.ok().body("Successfully Deleted");
 	}
 	
-	public Album updateAlbum(Long id, Album album) {
+	public ResponseEntity<Album> updateAlbum(Long id, Album album) {
 		Album albumToUpdate = albumDao.getOne(id);
 		albumToUpdate.setCatName(album.getCatName());
 		Album updatedAlbum = albumDao.saveAndFlush(albumToUpdate);
-		return updatedAlbum;
+		return ResponseEntity.ok().body(updatedAlbum);
 	}
 }
