@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.mobifest.mozeli.models.Admin;
 import com.mobifest.mozeli.models.Booking;
@@ -202,6 +204,23 @@ public class MozeliQuickAppController {
 	@GetMapping("/admin/{adminUserName}")
 	public ResponseEntity<Admin> fetchByUserName(@PathVariable("adminUserName") String userName) {
 		return adminService.getAdminByUserName(userName);	
+	}
+	
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value= "/admin/reset", method = RequestMethod.PUT)
+	public Object resetAdminPassword(@RequestParam("userName") String username, 
+			@RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword) throws Exception {
+		return adminService.resetAdminPassword(username, newPassword, confirmPassword);
+	}
+	
+	@CrossOrigin(origins = "*")
+	@RequestMapping(value= "/admin", method = RequestMethod.PUT)
+	public Object changeAdminPassword(@RequestParam("userName") String username, 
+			@RequestParam("oldPassword") String oldPassword,
+			@RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword) throws Exception {
+		return adminService.changeAdminPassword(username, oldPassword, newPassword, confirmPassword);
 	}
 	
 	@CrossOrigin(origins = "*")
