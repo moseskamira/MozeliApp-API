@@ -75,5 +75,34 @@ public class AdminService {
 		String newGeneratedToken = jwtUtil.generateToken(userDetails);
 		return ResponseEntity.ok(new AuthenticationResponse(newGeneratedToken));
 	}
+	
+	public ResponseEntity<String> changeAdminPassword(String userName, String oldPassword, String newPassword, String confirmPassword) {
+		Admin oldAdmin = adminDao.findByUserName(userName);
+		
+		if(oldAdmin != null) {
+			if(oldAdmin.getAdminPassword().equals(oldPassword)) {
+				oldAdmin.setAdminPassword(newPassword);
+				adminDao.save(oldAdmin);
+				return ResponseEntity.ok().body("Password Successfully Changed");
+			}else {
+				return ResponseEntity.ok().body("Incorrect Old Password !");
+			}
+		}else {
+			return ResponseEntity.ok().body("Username Not Found !");
+		}
+	}
+	
+	public String resetAdminPassword(String userName, String newPassword, String confirmPassword) throws Exception{
+		if(newPassword.equals(confirmPassword)) {
+			adminDao.resetAdminPassword(userName, newPassword);
+			return "Password Successfully Reset";
+		}else {
+			return "Password Mismatch !";
+		}
+	}
+		
 
 }
+
+
+
